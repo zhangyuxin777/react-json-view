@@ -1,8 +1,9 @@
 import React from 'react';
 import dispatcher from './../helpers/dispatcher';
+import ObjectAttributes from './../stores/ObjectAttributes';
 
 import CopyToClipboard from './CopyToClipboard';
-import {toType} from './../helpers/util';
+import { toType } from './../helpers/util';
 
 //icons
 import {
@@ -15,7 +16,7 @@ import Theme from './../themes/getStyle';
 
 export default class extends React.PureComponent {
     getObjectSize = () => {
-        const {size, theme, displayObjectSize} = this.props;
+        const { size, theme, displayObjectSize } = this.props;
         if (displayObjectSize) {
             return (
                 <span class="object-size"
@@ -24,7 +25,7 @@ export default class extends React.PureComponent {
                 </span>
             );
         }
-    }
+    };
 
     getAddAttribute = () => {
         const {
@@ -34,7 +35,7 @@ export default class extends React.PureComponent {
         return (
             <span
                 class="click-to-add"
-                style={{verticalAlign: 'top'}}>
+                style={{ verticalAlign: 'top' }}>
                 <Add
                     class="click-to-add-icon"
                     {...Theme(theme, 'addVarIcon')}
@@ -42,18 +43,37 @@ export default class extends React.PureComponent {
                         const request = {
                             name: depth > 0 ? name : null,
                             namespace: namespace.splice(
-                                0, (namespace.length-1)
+                                0, (namespace.length - 1)
                             ),
                             existing_value: src,
                             variable_removed: false,
-                            key_name: null
+                            key_name: null,
+                            new_value: {}
                         };
                         if (toType(src) === 'object') {
+
+                            const { rjvId } = this.props;
                             dispatcher.dispatch({
-                                name: 'ADD_VARIABLE_KEY_REQUEST',
+                                name: 'VARIABLE_ADDED',
                                 rjvId: rjvId,
-                                data: request,
+                                data: {
+                                    ...request,
+                                    new_value: {
+                                        ...src,
+                                        test: {
+                                            minVersion: 1,
+                                            type: 2,
+                                            label: ''
+                                        }
+                                    }
+                                }
                             });
+                            // dispatcher.dispatch({
+                            //     name: 'ADD_VARIABLE_KEY_REQUEST',
+                            //     rjvId: rjvId,
+                            //     data: request,
+                            // });
+                            console.log(111);
                         } else {
                             dispatcher.dispatch({
                                 name: 'VARIABLE_ADDED',
@@ -63,12 +83,67 @@ export default class extends React.PureComponent {
                                     new_value: [...src, null]
                                 }
                             });
+                            console.log(222);
                         }
                     }}
                 />
             </span>
         );
-    }
+    };
+
+    getAddObjectAndAttrBtn = () => {
+        const {
+            theme, namespace, name, src, rjvId, depth, addObjectAndAttrBtnDom
+        } = this.props;
+
+        const BtnDom = ({ onClick }) => {
+            return (
+                <span onClick={() => {
+                    onClick && onClick({
+                        minVersion: 1,
+                        type: 2,
+                        label: ''
+                    });
+                }}>add</span>
+            );
+        };
+
+        if (!BtnDom) {
+            return null;
+        }
+
+        return (
+            <BtnDom onClick={() => {
+                const request = {
+                    name: depth > 0 ? name : null,
+                    namespace: namespace.splice(
+                        0, (namespace.length - 1)
+                    ),
+                    existing_value: src,
+                    variable_removed: false,
+                    key_name: null,
+                    new_value: {}
+                };
+                const { rjvId } = this.props;
+                dispatcher.dispatch({
+                    name: 'VARIABLE_ADDED',
+                    rjvId: rjvId,
+                    data: {
+                        ...request,
+                        new_value: {
+                            ...src,
+                            test: {
+                                minVersion: 1,
+                                type: 2,
+                                label: ''
+                            }
+                        }
+                    }
+                });
+            }}
+            />
+        );
+    };
 
     getRemoveObject = () => {
         const {
@@ -80,7 +155,7 @@ export default class extends React.PureComponent {
             return;
         }
         return (
-            <span class="click-to-remove" >
+            <span class="click-to-remove">
                 <Remove
                     class="click-to-remove-icon"
                     {...Theme(theme, 'removeVarIcon')}
@@ -90,7 +165,7 @@ export default class extends React.PureComponent {
                             rjvId: rjvId,
                             data: {
                                 name: name,
-                                namespace: namespace.splice(0, (namespace.length-1)),
+                                namespace: namespace.splice(0, (namespace.length - 1)),
                                 existing_value: src,
                                 variable_removed: true
                             },
@@ -99,7 +174,7 @@ export default class extends React.PureComponent {
                 />
             </span>
         );
-    }
+    };
 
     render = () => {
         const {
@@ -108,13 +183,14 @@ export default class extends React.PureComponent {
             onAdd,
             enableClipboard,
             src,
-            namespace
+            namespace,
+            customObjectAction
         } = this.props;
         return (
             <div
                 {...Theme(theme, 'object-meta-data')}
                 class='object-meta-data'
-                onClick={(e)=>{
+                onClick={(e) => {
                     e.stopPropagation();
                 }}
             >
@@ -124,14 +200,15 @@ export default class extends React.PureComponent {
                 {enableClipboard
                     ? (<CopyToClipboard
                         clickCallback={enableClipboard}
-                        {...{src, theme, namespace}} />)
+                        {...{ src, theme, namespace }} />)
                     : null
                 }
                 {/* copy add/remove icons */}
                 {onAdd !== false ? this.getAddAttribute() : null}
                 {onDelete !== false ? this.getRemoveObject() : null}
+                {this.getAddObjectAndAttrBtn()}
             </div>
         );
-    }
+    };
 
 }

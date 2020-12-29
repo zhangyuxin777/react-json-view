@@ -24,7 +24,7 @@ export default class extends React.PureComponent {
 
         return (
             <div
-                class="key-modal-request"
+                class="key-modal-request11"
                 {...Theme(theme, 'key-modal-request')}
                 onClick={this.closeModal}
             >
