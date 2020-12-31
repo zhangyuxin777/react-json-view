@@ -1,0 +1,32 @@
+.react-json-view .copy-to-clipboard-container {
+  vertical-align: top;
+  display: none;
+}
+.react-json-view .click-to-add {
+  display: none;
+}
+.react-json-view .click-to-remove {
+  display: none;
+}
+.react-json-view .click-to-edit {
+  display: none;
+}
+.react-json-view .object-key-val:hover > span > .object-meta-data > .copy-to-clipboard-container {
+  display: inline-block;
+}
+.react-json-view .object-key-val:hover > span > .object-meta-data > .click-to-add {
+  display: inline-block;
+}
+.react-json-view .object-key-val:hover > span > .object-meta-data > .click-to-remove {
+  display: inline-block;
+}
+.react-json-view .variable-row:hover .copy-to-clipboard-container {
+  display: inline-block;
+}
+.react-json-view .object-content .variable-row:hover .click-to-remove {
+  display: inline-block;
+}
+.react-json-view .object-content .variable-row:hover .click-to-edit {
+  display: inline-block;
+}
+/*# sourceMappingURL=global.css.map */

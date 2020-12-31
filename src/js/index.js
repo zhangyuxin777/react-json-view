@@ -10,7 +10,7 @@ import ObjectAttributes from './stores/ObjectAttributes';
 import Theme from './themes/getStyle';
 
 //some style behavior requires css
-import './../style/scss/global.scss';
+import './../style/scss/global.css';
 
 //forward src through to JsonObject component
 class ReactJsonView extends React.PureComponent {
