@@ -53,13 +53,14 @@ class ObjectAttributes extends EventEmitter {
             );
             this.emit('variable-update-' + rjvId);
             break;
+        case 'VARIABLE_CUSTOM_ADDED':
         case 'VARIABLE_ADDED':
             action.data.updated_src = this.updateSrc(
                 rjvId, data
             );
             this.set(
                 rjvId, 'action', 'variable-update',
-                {...data, type:'variable-added'}
+                {...data, type:'variable-custom-added'}
             );
             this.emit('variable-update-' + rjvId);
             break;

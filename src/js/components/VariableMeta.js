@@ -27,6 +27,7 @@ export default class extends React.PureComponent {
         }
     };
 
+
     getAddAttribute = () => {
         const {
             theme, namespace, name, src, rjvId, depth
@@ -35,7 +36,7 @@ export default class extends React.PureComponent {
         return (
             <span
                 class="click-to-add"
-                style={{ verticalAlign: 'top' }}>
+                style={{verticalAlign: 'top'}}>
                 <Add
                     class="click-to-add-icon"
                     {...Theme(theme, 'addVarIcon')}
@@ -43,37 +44,18 @@ export default class extends React.PureComponent {
                         const request = {
                             name: depth > 0 ? name : null,
                             namespace: namespace.splice(
-                                0, (namespace.length - 1)
+                                0, (namespace.length-1)
                             ),
                             existing_value: src,
                             variable_removed: false,
-                            key_name: null,
-                            new_value: {}
+                            key_name: null
                         };
                         if (toType(src) === 'object') {
-
-                            const { rjvId } = this.props;
                             dispatcher.dispatch({
-                                name: 'VARIABLE_ADDED',
+                                name: 'ADD_VARIABLE_KEY_REQUEST',
                                 rjvId: rjvId,
-                                data: {
-                                    ...request,
-                                    new_value: {
-                                        ...src,
-                                        test: {
-                                            minVersion: 1,
-                                            type: 2,
-                                            label: ''
-                                        }
-                                    }
-                                }
+                                data: request,
                             });
-                            // dispatcher.dispatch({
-                            //     name: 'ADD_VARIABLE_KEY_REQUEST',
-                            //     rjvId: rjvId,
-                            //     data: request,
-                            // });
-                            console.log(111);
                         } else {
                             dispatcher.dispatch({
                                 name: 'VARIABLE_ADDED',
@@ -83,66 +65,44 @@ export default class extends React.PureComponent {
                                     new_value: [...src, null]
                                 }
                             });
-                            console.log(222);
                         }
                     }}
                 />
             </span>
         );
-    };
+    }
 
-    getAddObjectAndAttrBtn = () => {
+    renderCustom = () => {
         const {
-            theme, namespace, name, src, rjvId, depth, addObjectAndAttrBtnDom
+            renderCustomDom, theme, namespace, name, src, rjvId, depth, addObjectAndAttrBtnDom
         } = this.props;
-
-        const BtnDom = ({ onClick }) => {
-            return (
-                <span onClick={() => {
-                    onClick && onClick({
-                        minVersion: 1,
-                        type: 2,
-                        label: ''
-                    });
-                }}>add</span>
-            );
-        };
-
-        if (!BtnDom) {
-            return null;
-        }
-
-        return (
-            <BtnDom onClick={() => {
-                const request = {
-                    name: depth > 0 ? name : null,
-                    namespace: namespace.splice(
-                        0, (namespace.length - 1)
-                    ),
-                    existing_value: src,
-                    variable_removed: false,
-                    key_name: null,
-                    new_value: {}
-                };
-                const { rjvId } = this.props;
-                dispatcher.dispatch({
-                    name: 'VARIABLE_ADDED',
-                    rjvId: rjvId,
-                    data: {
-                        ...request,
-                        new_value: {
-                            ...src,
-                            test: {
-                                minVersion: 1,
-                                type: 2,
-                                label: ''
-                            }
-                        }
+        const onAdd = ({ key, value }) => {
+            const request = {
+                name: depth > 0 ? name : null,
+                namespace: namespace.splice(
+                    0, (namespace.length - 1)
+                ),
+                existing_value: src,
+                variable_removed: false,
+                key_name: null,
+                new_value: {}
+            };
+            const { rjvId } = this.props;
+            dispatcher.dispatch({
+                name: 'VARIABLE_CUSTOM_ADDED',
+                rjvId: rjvId,
+                data: {
+                    ...request,
+                    new_value: {
+                        ...src,
+                        [key]: { ...value }
                     }
-                });
-            }}
-            />
-        );
+                }
+            });
+        };
+        const custom = renderCustomDom ? <span className="click-to-add">{renderCustomDom({ onAdd })}</span> : null;
+
+        return custom;
     };
 
     getRemoveObject = () => {
@@ -184,7 +144,6 @@ export default class extends React.PureComponent {
             enableClipboard,
             src,
             namespace,
-            customObjectAction
         } = this.props;
         return (
             <div
@@ -206,7 +165,7 @@ export default class extends React.PureComponent {
                 {/* copy add/remove icons */}
                 {onAdd !== false ? this.getAddAttribute() : null}
                 {onDelete !== false ? this.getRemoveObject() : null}
-                {this.getAddObjectAndAttrBtn()}
+                {this.renderCustom()}
             </div>
         );
     };
