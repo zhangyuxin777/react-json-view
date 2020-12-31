@@ -54,12 +54,12 @@ export default class extends React.PureComponent {
         }
 
         return (
-            <div class="rjv-demo">
-                <div class="rjv-header">
-                    <div class="header-1">react-json-view</div>
-                    <div class="header-2">component demo</div>
+            <div className="rjv-demo">
+                <div className="rjv-header">
+                    <div className="header-1">react-json-view</div>
+                    <div className="header-2">component demo</div>
                     <img
-                        class="rjv-logo"
+                        className="rjv-logo"
                         src="https://github.com/mac-s-g/react-json-view/blob/master/doc/rjv-icon-alt.png?raw=true"
                         onClick={() => {
                             window.open(
@@ -112,52 +112,52 @@ export default class extends React.PureComponent {
                     iconStyle={iconStyle}
                 />
 
-                <div class="rjv-settings">
-                    <div class="rjv-input">
-                        <div class="rjv-label">Theme:</div>
+                <div className="rjv-settings">
+                    <div className="rjv-input">
+                        <div className="rjv-label">Theme:</div>
                         {this.getThemeInput(theme)}
                     </div>
-                    <div class="rjv-input">
-                        <div class="rjv-label">Icon Style:</div>
+                    <div className="rjv-input">
+                        <div className="rjv-label">Icon Style:</div>
                         {this.getIconStyleInput(iconStyle)}
                     </div>
-                    <div class="rjv-input">
-                        <div class="rjv-label">Enable Edit:</div>
+                    <div className="rjv-input">
+                        <div className="rjv-label">Enable Edit:</div>
                         {this.getEditInput(onEdit)}
                     </div>
-                    <div class="rjv-input">
-                        <div class="rjv-label">Enable Add:</div>
+                    <div className="rjv-input">
+                        <div className="rjv-label">Enable Add:</div>
                         {this.getAddInput(onAdd)}
                     </div>
-                    <div class="rjv-input">
-                        <div class="rjv-label">Enable Delete:</div>
+                    <div className="rjv-input">
+                        <div className="rjv-label">Enable Delete:</div>
                         {this.getDeleteInput(onDelete)}
                     </div>
-                    <div class="rjv-input">
-                        <div class="rjv-label">Enable Clipboard:</div>
+                    <div className="rjv-input">
+                        <div className="rjv-label">Enable Clipboard:</div>
                         {this.getEnableClipboardInput(enableClipboard)}
                     </div>
                 </div>
 
-                <div class="rjv-settings">
-                    <div class="rjv-input">
-                        <div class="rjv-label">Display Data Types:</div>
+                <div className="rjv-settings">
+                    <div className="rjv-input">
+                        <div className="rjv-label">Display Data Types:</div>
                         {this.getDataTypesInput(displayDataTypes)}
                     </div>
-                    <div class="rjv-input">
-                        <div class="rjv-label">Display Object Size:</div>
+                    <div className="rjv-input">
+                        <div className="rjv-label">Display Object Size:</div>
                         {this.getObjectSizeInput(displayObjectSize)}
                     </div>
-                    <div class="rjv-input">
-                        <div class="rjv-label">Indent Width:</div>
+                    <div className="rjv-input">
+                        <div className="rjv-label">Indent Width:</div>
                         {this.getIndentWidthInput(indentWidth)}
                     </div>
-                    <div class="rjv-input">
-                        <div class="rjv-label">Collapsed:</div>
+                    <div className="rjv-input">
+                        <div className="rjv-label">Collapsed:</div>
                         {this.getCollapsedInput(collapsed)}
                     </div>
-                    <div class="rjv-input">
-                        <div class="rjv-label">
+                    <div className="rjv-input">
+                        <div className="rjv-label">
                             Collapse Strings After Length:
                         </div>
                         {this.getCollapsedStringsInput(collapseStringsAfter)}

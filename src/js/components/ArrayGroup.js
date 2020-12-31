@@ -58,7 +58,7 @@ export default class extends React.PureComponent {
         const size = groupArraysAfterLength;
         const groups = Math.ceil(src.length / size);
 
-        return (<div class='object-key-val'
+        return (<div className='object-key-val'
             {...Theme(theme, jsvRoot ? 'jsv-root' : 'objectKeyVal', {paddingLeft: object_padding_left})}
         >
             <ObjectName {...this.props} />
@@ -67,18 +67,18 @@ export default class extends React.PureComponent {
                 <VariableMeta size={src.length} {...this.props}/>
             </span>
             {[...Array(groups)].map((_, i) =>
-                <div key={i} class='object-key-val array-group' {...Theme(theme, 'objectKeyVal', {
+                <div key={i} className='object-key-val array-group' {...Theme(theme, 'objectKeyVal', {
                     marginLeft: 6,
                     paddingLeft: array_group_padding_left
                 })} >
                     <span {...Theme(theme, 'brace-row')}>
 
-                        <div class='icon-container' {...Theme(theme, 'icon-container')}
+                        <div className='icon-container' {...Theme(theme, 'icon-container')}
                             onClick={(e) => {this.toggleCollapsed(i);}}>
                             {this.getExpandedIcon(i)}
                         </div>
                         {this.state.expanded[i] ?
-                            <ObjectComponent 
+                            <ObjectComponent
                                 key={name + i}
                                 depth={0}
                                 name={false}
@@ -92,10 +92,10 @@ export default class extends React.PureComponent {
                                 theme={theme}
                                 {...rest}
                             />
-                            :   <span {...Theme(theme, 'brace')}  onClick={(e) => {this.toggleCollapsed(i);}} class='array-group-brace'>
+                            :   <span {...Theme(theme, 'brace')}  onClick={(e) => {this.toggleCollapsed(i);}} className='array-group-brace'>
                             [
-                                <div {...Theme(theme, 'array-group-meta-data')} class='array-group-meta-data'>
-                                    <span class='object-size'
+                                <div {...Theme(theme, 'array-group-meta-data')} className='array-group-meta-data'>
+                                    <span className='object-size'
                                         {...Theme(theme, 'object-size')}>
                                         {i * size}
                                         {' - '}

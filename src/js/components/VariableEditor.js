@@ -63,7 +63,7 @@ class VariableEditor extends React.PureComponent {
                 {...Theme(theme, 'objectKeyVal', {
                     paddingLeft: indentWidth * singleIndent
                 })}
-                class="variable-row"
+                className="variable-row"
                 key={variable.name}
             >
                 {type == 'array' ? (
@@ -78,7 +78,7 @@ class VariableEditor extends React.PureComponent {
                     <span>
                         <span
                             {...Theme(theme, 'object-name')}
-                            class="object-key"
+                            className="object-key"
                             key={variable.name + '_' + namespace}
                         >
                             <span style={{ verticalAlign: 'top' }}>"</span>
@@ -91,7 +91,7 @@ class VariableEditor extends React.PureComponent {
                     </span>
                 )}
                 <div
-                    class="variable-value"
+                    className="variable-value"
                     onClick={
                         onSelect === false && onEdit === false
                             ? null
@@ -136,9 +136,9 @@ class VariableEditor extends React.PureComponent {
         const { variable, theme } = this.props;
 
         return (
-            <div class="click-to-edit" style={{ verticalAlign: 'top' }}>
+            <div className="click-to-edit" style={{ verticalAlign: 'top' }}>
                 <Edit
-                    class="click-to-edit-icon"
+                    className="click-to-edit-icon"
                     {...Theme(theme, 'editVarIcon')}
                     onClick={() => {
                         this.prepopInput(variable);
@@ -167,9 +167,9 @@ class VariableEditor extends React.PureComponent {
         const { variable, namespace, theme, rjvId } = this.props;
 
         return (
-            <div class="click-to-remove" style={{ verticalAlign: 'top' }}>
+            <div className="click-to-remove" style={{ verticalAlign: 'top' }}>
                 <Remove
-                    class="click-to-remove-icon"
+                    className="click-to-remove-icon"
                     {...Theme(theme, 'removeVarIcon')}
                     onClick={() => {
                         dispatcher.dispatch({
@@ -217,7 +217,7 @@ class VariableEditor extends React.PureComponent {
         default:
             // catch-all for types that weren't anticipated
             return (
-                <div class="object-value">
+                <div className="object-value">
                     {JSON.stringify(variable.value)}
                 </div>
             );
@@ -234,7 +234,7 @@ class VariableEditor extends React.PureComponent {
                     type="text"
                     inputRef={input => input && input.focus()}
                     value={editValue}
-                    class="variable-editor"
+                    className="variable-editor"
                     onChange={event => {
                         const value = event.target.value;
                         const detected = parseInput(value);
@@ -269,14 +269,14 @@ class VariableEditor extends React.PureComponent {
                 />
                 <div {...Theme(theme, 'edit-icon-container')}>
                     <Remove
-                        class="edit-cancel"
+                        className="edit-cancel"
                         {...Theme(theme, 'cancel-icon')}
                         onClick={() => {
                             this.setState({ editMode: false, editValue: '' });
                         }}
                     />
                     <CheckCircle
-                        class="edit-check string-value"
+                        className="edit-check string-value"
                         {...Theme(theme, 'check-icon')}
                         onClick={() => {
                             this.submitEdit();
@@ -321,7 +321,7 @@ class VariableEditor extends React.PureComponent {
                     <div {...Theme(theme, 'detected-row')}>
                         {detected}
                         <CheckCircle
-                            class="edit-check detected"
+                            className="edit-check detected"
                             style={{
                                 verticalAlign: 'top',
                                 paddingLeft: '3px',
