@@ -218,7 +218,10 @@ class ReactJsonView extends React.PureComponent {
       name, namespace, new_value, existing_value,
       variable_removed, updated_src, type
     } = ObjectAttributes.get(this.rjvId, 'action', 'variable-update');
-    const { onEdit, onDelete, onAdd, onCustomChange } = this.props;
+    const {
+      onEdit, onDelete, onAdd, onCustomChange = () => {
+      }
+    } = this.props;
 
     const { src } = this.state;
 
@@ -237,17 +240,20 @@ class ReactJsonView extends React.PureComponent {
     case 'variable-added':
       result = onAdd(on_edit_payload);
       break;
-    case 'variable-custom-edited':
-      result = onCustomChange ? onCustomChange(on_edit_payload) : null;
+    case 'variable-custom-added':
+      result = onCustomChange(on_edit_payload);
       break;
     case 'variable-edited':
       result = onEdit(on_edit_payload);
+      break;
+    case 'variable-custom-edited':
+      result = onCustomChange(on_edit_payload);
       break;
     case 'variable-removed':
       result = onDelete(on_edit_payload);
       break;
     case 'variable-custom-removed':
-      result = onDelete(on_edit_payload);
+      result = onCustomChange(on_edit_payload);
       break;
     }
 
